@@ -39,7 +39,7 @@ select distinct(title) from titles order by length(title) desc;
 
 -- 문제10
 -- 현재 Enginner 직책의 사원은 총 몇 명입니까?
-select count(*) from titles where title='Engineer';
+select count(*) from titles where title='Engineer' and to_date>now();
 
 -- 문제11
 -- 사번이 13250(Zeydy)인 지원이 직책 변경 상황을 시간순으로 출력해보세요.
