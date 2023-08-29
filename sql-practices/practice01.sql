@@ -23,7 +23,7 @@ select count(*) from departments; -- 9
 
 -- 문제6.
 -- 현재 부서 매니저는 몇 명이나 있나요?(역임 매너저는 제외)
-select count(*) from dept_manager; -- 24
+select count(*) from dept_manager where to_date>now(); -- 9
 
 -- 문제7.
 -- 전체 부서를 출력하려고 합니다. 순서는 부서이름이 긴 순서대로 출력해 보세요.
