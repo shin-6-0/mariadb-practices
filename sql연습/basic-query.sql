@@ -26,10 +26,34 @@ drop table pet;
 show tables;
 
 -- insert: DML(C)
-insert into pet values('성탄이', '안대혁', 'dog', 'm', '2019-12-25', null);
+insert into pet values('충시기', '신유경', 'dog', 'm', '2019-12-25', null);
+insert into pet values('Buffy', 'Gwen', 'dog', 'f', '1994-03-17',null);
+
 
 -- select: DML(R)
 select * from pet;
+SET GLOBAL local_infile = 1;
 
 -- update: DML(U)
-update pet set name='성타니' where name='성탄이2';
+update pet set name='춘식이' where name='충시기';
+
+LOAD DATA LOCAL INFILE '‪C:/pet.txt' INTO TABLE pet  IGNORE 1 LINES;
+
+-- select 연습
+-- 문) bowser의 주인이름은?
+select owner from pet where name = 'bowser';
+
+-- 문2) 1998 이후에 태어난 애들은?
+select * from pet where birth >='1998-01-01';
+
+-- 문3) 종이 뱀이거나 새인 애들은?
+select * from pet where species = 'snake' or species = 'bird';
+
+-- 문4)  order by
+select name, birth from pet order by birth asc;
+
+-- 예8) 집계함수 count,avg,sum,max,min ..
+select count(*) from pet;
+select max(birth) from pet;
+
+select * from pet;
