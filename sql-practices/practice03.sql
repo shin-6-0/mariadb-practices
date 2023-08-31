@@ -2,14 +2,14 @@
 
 -- 문제 1. 
 -- 현재 급여가 많은 직원부터 직원의 사번, 이름, 그리고 연봉을 출력 하시오.
-select s.emp_no as 사번, e.first_name as 이름, s.salary as 연봉 from salaries s inner join employees e on s.emp_no=e.emp_no where to_date>now();
+select s.emp_no as 사번, e.first_name as 이름, s.salary as 연봉 
+from salaries s inner join employees e on s.emp_no=e.emp_no where to_date>now();
 
 -- 문제2.
 -- 전체 사원의 사번, 이름, 현재 직책을 이름 순서로 출력하세요.
-select * from departments;
-select * from dept_emp;
-select * from titles;
-select e.emp_no as 사번, e.first_name as 이름, t.title as 직책 from employees e inner join (select * from titles where from_date<=now()) t on e.emp_no=t.emp_no ;
+select e.emp_no as 사번, e.first_name as 이름, t.title as 직책 
+from employees e 
+inner join (select * from titles where from_date<=now()) t on e.emp_no=t.emp_no ;
 
 -- 문제3.
 -- 전체 사원의 사번, 이름, 현재 부서를 이름 순서로 출력하세요..
@@ -17,10 +17,6 @@ select e.emp_no as 사번, e.first_name as 이름, d.dept_name as 현재부서 f
 
 -- 문제4.
 -- 전체 사원의 사번, 이름, 연봉, 직책, 부서를 모두 이름 순서로 출력합니다.
-select * from employees;
-select * from salaries;
-select * from titles;
-select * from dept_emp;
 select e.emp_no as 사번, e.first_name as 이름, s.salary as 연봉, t.title as 직책 ,d.dept_name as 부서 
 from employees e 
 	inner join dept_emp de 
@@ -52,6 +48,8 @@ where substring(e.last_name,1,1)='S'; -- and t.to_date>=now()
 
 -- 문제7.
 -- 현재, 직책이 Engineer인 사원 중에서 현재 급여가 40000 이상인 사원을 급여가 큰 순서대로 출력하세요.
+-- 이름, 급여 출력
+-- 급여가 큰 순서대로 출력하세요
 select e.emp_no as 사번, e.first_name as 이름, e.last_name as 성, s.salary as 급여, t.title as 직책
 from salaries s inner join titles t
 	on s.emp_no=t.emp_no
