@@ -29,7 +29,9 @@ from employees e
 		on e.emp_no = t.emp_no;
 
 -- 문제5.
--- ‘Technique Leader’의 직책으로 과거에 근무한 적이 있는 모든 사원의 사번과 이름을 출력하세요. (현재 ‘Technique Leader’의 직책(으로 근무하는 사원은 고려하지 않습니다.) 이름은 first_name과 last_name을 합쳐 출력 합니다.
+-- ‘Technique Leader’의 직책으로 과거에 근무한 적이 있는 모든 사원의 사번과 이름을 출력하세요. 
+-- (현재 ‘Technique Leader’의 직책(으로 근무하는 사원은 고려하지 않습니다.) 
+-- 이름은 first_name과 last_name을 합쳐 출력 합니다.
 select e.emp_no as 사번, concat(e.first_name,' ',e.last_name) as 이름 -- , t.title, t.to_date
 from titles t inner join employees e 
 	on t.emp_no = e.emp_no
@@ -57,26 +59,21 @@ from salaries s inner join titles t
     on e.emp_no = s.emp_no and e.emp_no=t.emp_no
 where t.title='Engineer' and s.salary>=40000 and t.to_date>=now() and s.to_date>=now() ;
 
--- 문제8.
--- 현재 급여가 50000이 넘는 직책을 직책, 급여로 급여가 큰 순서대로 출력하시오
-select t.title, s.salary
-from titles t inner join salaries s
-	on t.emp_no=s.emp_no
-where s.salary>50000 and s.to_date>=now() and t.to_date>=now()
-order by salary desc;
--- 현재 급여가 50000이 넘는 직책을 직책, 급여로 급여가 큰 순서대로 직책별로 출력하시오 
-select title, avg(s.salary)
-from titles t inner join salaries s
-	on t.emp_no=s.emp_no
-where s.salary>50000 and s.to_date>=now() and t.to_date>=now()
-group by t.title
-order by salary desc;
 
+-- 문제8.
+-- 현재, 부서별 평균 연봉을 연봉이 큰 부서 순서대로 출력하세요.
+select * from dept_emp;
+select d.dept_name as 부서 , avg(salary) as 평균연봉
+from departments d 
+inner join dept_emp de on d.dept_no=de.dept_no
+inner join salaries s on de.emp_no = s.emp_no
+where de.to_date='9999-01-01' and s.to_date='9999-01-01'
+group by de.dept_no;
 
 -- 문제9.
--- 현재, 부서별 평균 연봉을 연봉이 큰 부서 순서대로 출력하세요.
-select * 
-from 
-
--- 문제10.
 -- 현재, 직책별 평균 연봉을 연봉이 큰 직책 순서대로 출력하세요.
+select t.title as 직책, avg(s.salary) as 연봉
+from titles t inner join salaries s on t.emp_no = s.emp_no
+where t.to_date='9999-01-01' and s.to_date='9999-01-01'
+group by t.title
+order by avg(s.salary) desc;
