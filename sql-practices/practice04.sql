@@ -107,4 +107,21 @@ where s.to_date>now()
 -- 문제8. (순수 join 문제)
 -- 현재 자신의 매니저보다 높은 연봉을 받고 있는 직원은?
 -- 부서이름, 사원이름, 연봉, 매니저 이름, 메니저 연봉 순으로 출력합니다.
+select e.emp_no as 사번, e.first_name as 이름, s.salary as 연봉
+from employees e
+inner join salaries s on s.emp_no = e.emp_no
+inner join dept_emp de on de.emp_no = e.emp_no
+inner join departments d on de.dept_no = d.dept_no
+where s.to_date>now() 
+	and de.to_date>now();
 
+select e.emp_no as 사번, e.first_name as 이름, s.salary as 연봉, dm.emp_no as '매니저 사번'
+from employees e
+inner join salaries s on s.emp_no = e.emp_no
+inner join dept_emp de on de.emp_no = e.emp_no
+inner join departments d on de.dept_no = d.dept_no
+right join dept_manager dm on e.emp_no = dm.emp_no 
+where s.to_date>now() 
+	and de.to_date>now();
+
+select * from dept_manager;
