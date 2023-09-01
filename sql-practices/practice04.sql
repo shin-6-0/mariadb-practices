@@ -107,21 +107,17 @@ where s.to_date>now()
 -- 문제8. (순수 join 문제)
 -- 현재 자신의 매니저보다 높은 연봉을 받고 있는 직원은?
 -- 부서이름, 사원이름, 연봉, 매니저 이름, 메니저 연봉 순으로 출력합니다.
-select e.emp_no as 사번, e.first_name as 이름, s.salary as 연봉
-from employees e
-inner join salaries s on s.emp_no = e.emp_no
-inner join dept_emp de on de.emp_no = e.emp_no
-inner join departments d on de.dept_no = d.dept_no
-where s.to_date>now() 
-	and de.to_date>now();
-
-select e.emp_no as 사번, e.first_name as 이름, s.salary as 연봉, dm.emp_no as '매니저 사번'
-from employees e
-inner join salaries s on s.emp_no = e.emp_no
-inner join dept_emp de on de.emp_no = e.emp_no
-inner join departments d on de.dept_no = d.dept_no
-right join dept_manager dm on e.emp_no = dm.emp_no 
-where s.to_date>now() 
-	and de.to_date>now();
-
-select * from dept_manager;
+select d.dept_name, e.first_name, s.salary, a.first_name, a.salary
+from departments d, dept_emp de, employees e, salaries s, (select dm.dept_no, s.salary, e.first_name
+														   from dept_manager dm, employees e, salaries s
+                                                           where dm.emp_no = e.emp_no
+                                                           and e.emp_no = s.emp_no
+                                                           and dm.to_date = '9999-01-01'
+                                                           and s.to_date = '9999-01-01') a
+where d.dept_no = de.dept_no
+and de.emp_no = e.emp_no
+and e.emp_no = s.emp_no
+and de.to_date = '9999-01-01'
+and s.to_date = '9999-01-01'
+and de.dept_no = a.dept_no
+and s.salary > a.salary;
