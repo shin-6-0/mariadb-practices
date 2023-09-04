@@ -28,20 +28,23 @@ public class MyDriverTest {
 			
 			System.out.println("연결성공!-"+conn);
 			
-			/*
-			 * //3. Statement 객체 생성 stmt = conn.createStatement();
-			 * 
-			 * //4. SQL 실행 String sql = "select emp_no, first_name, last_name" +
-			 * "  from employees" + " where first_name like '%" + keyword + "%'" +
-			 * "   and last_name like '%" + keyword + "%'";
-			 * 
-			 * rs = stmt.executeQuery(sql);
-			 * 
-			 * //5. 결과 처리 while(rs.next()) { Long empNo = rs.getLong(1); String firstName =
-			 * rs.getString(2); String lastName = rs.getString(3);
-			 * 
-			 * System.out.println(empNo + ":" + firstName + ":" + lastName); }
-			 */
+			
+//			//3. Statement 객체 생성 
+//			stmt = conn.createStatement();
+//			  
+//			  //4. SQL 실행 
+//			String sql = "select emp_no, first_name, last_name" +
+//			"  from employees" + " where first_name like '%" + keyword + "%'" +
+//			"   and last_name like '%" + keyword + "%'";
+//			  
+//			rs = stmt.executeQuery(sql);
+//			  
+//			//5. 결과 처리 
+//			while(rs.next()) { Long empNo = rs.getLong(1); String firstName =
+//			rs.getString(2); String lastName = rs.getString(3);
+//			  
+//			System.out.println(empNo + ":" + firstName + ":" + lastName); }
+			 
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
