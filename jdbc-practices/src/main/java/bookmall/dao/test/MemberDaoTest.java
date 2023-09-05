@@ -54,4 +54,14 @@ public class MemberDaoTest {
 		System.out.println(">> 회원가입(Insert) 실행 : 이름 = " + vo.getName() + ", 연락처 : " + vo.getPhone()
 			+ ", 이메일 : " + vo.getEmail() + ", 비밀번호 : " + vo.getPassword()+ "인 멤버 추가");
 	}
+	
+	public static String findMemberName(String email,String password) {
+		String memerName =new MemberDao().findMemberName(email,password);
+		return memerName;
+	}
+	
+	public static Long findMemberNo(String email,String password) {
+		Long memberNo =new MemberDao().findMemberNo(email,password);
+		return memberNo;
+	}
 }

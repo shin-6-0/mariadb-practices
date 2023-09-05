@@ -178,7 +178,77 @@ public class MemberDao {
 		}
 	}
 	
-	private Connection getConnection() throws SQLException {
+	public static Long findMemberNo(String email, String password) {
+		Long memberNo = 0L;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn=getConnection();
+
+			String findMemNoSql = "select no from member "
+					+ "where email = '"+email+"' and password = '"+password+"'";
+			pstmt = conn.prepareStatement(findMemNoSql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberNo=rs.getLong(1);
+			}
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		return memberNo;
+	}
+	public static String findMemberName(String email, String password) {
+		String memberName = "";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn=getConnection();
+
+			String findMemNoSql = "select name from member "
+					+ "where email = '"+email+"' and password = '"+password+"'";
+			pstmt = conn.prepareStatement(findMemNoSql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberName=rs.getString(1);
+			}
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		return memberName;
+	}
+	private static Connection getConnection() throws SQLException {
 		Connection conn=null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -189,6 +259,10 @@ public class MemberDao {
 		} 
 		return conn;
 	}
+
+
+
+
 
 
 }

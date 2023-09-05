@@ -153,7 +153,117 @@ public class BookDao {
 		return result;
 	}
 	
-	private Connection getConnection() throws SQLException {
+
+
+	public static Long findBookNo(String title) {
+		Long bookNo = 0L;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn=getConnection();
+
+			String findBookNoSql = "select no from book "
+					+ "where title = '"+title+"'";
+			pstmt = conn.prepareStatement(findBookNoSql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				bookNo=rs.getLong(1);
+			}
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		return bookNo;
+	}
+	
+	public static String findBookTitle(Long no ) {
+		String bookTitle = "";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn=getConnection();
+
+			String findBookNoSql = "select title from book "
+					+ "where no = '"+no.intValue()+"'";
+			pstmt = conn.prepareStatement(findBookNoSql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				bookTitle=rs.getString(1);
+			}
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		return bookTitle;
+	}
+
+	public static Long findBookPrice(Long no ) {
+		Long Price = 0L;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn=getConnection();
+
+			String findBookNoSql = "select price from book "
+					+ "where no = '"+no.intValue()+"'";
+			pstmt = conn.prepareStatement(findBookNoSql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Price=rs.getLong(1);
+			}
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		return Price;
+	}
+	
+	private static Connection getConnection() throws SQLException {
 		Connection conn=null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -164,8 +274,6 @@ public class BookDao {
 		} 
 		return conn;
 	}
-
-
 
 
 

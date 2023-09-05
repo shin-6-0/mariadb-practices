@@ -53,4 +53,9 @@ public class BookDaoTest {
 			+ "', 가격 = " + vo.getPrice()+"원, 카테고리 = '"+vo.getCategoryName()+"'인 책 추가");
 		}
 	}
+	private static Long findBookNo(String title) {
+		Long bookNo = new BookDao().findBookNo(title);
+		return bookNo;
+	}
+
 }
