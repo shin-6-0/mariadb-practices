@@ -1,32 +1,32 @@
 package bookmall.vo;
 
 public class CartVo {
-	private Long no;
-	private Long bookNo;
-	private Long memNo;
-	private Long quantity;
-	public Long getNo() {
+	private long no;
+	private long bookNo;
+	private long memNo;
+	private long quantity;
+	public long getNo() {
 		return no;
 	}
-	public void setNo(Long no) {
+	public void setNo(long no) {
 		this.no = no;
 	}
-	public Long getBookNo() {
+	public long getBookNo() {
 		return bookNo;
 	}
-	public void setBookNo(Long bookNo) {
+	public void setBookNo(long bookNo) {
 		this.bookNo = bookNo;
 	}
-	public Long getMemNo() {
+	public long getMemNo() {
 		return memNo;
 	}
-	public void setMemNo(Long memNo) {
+	public void setMemNo(long memNo) {
 		this.memNo = memNo;
 	}
-	public Long getQuantity() {
+	public long getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Long quantity) {
+	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}
 	@Override

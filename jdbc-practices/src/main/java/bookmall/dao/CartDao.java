@@ -26,7 +26,7 @@ public class CartDao {
 		return conn;
 	}
 
-	public List<Map<String,Long>> selectCartPersonal(Long memberNo) {
+	public List<Map<String,Long>> selectCartPersonal(long memberNo) {
 		List<Map<String,Long>> list = new ArrayList<>();
 
 		Connection conn = null;
@@ -51,9 +51,9 @@ public class CartDao {
 			//6. 결과 처리
 			while(rs.next()) {
 				Map<String, Long> map = new HashMap<>();
-				Long memNo = rs.getLong(1);
-				Long bookNo = rs.getLong(2);
-				Long quantity = rs.getLong(3);
+				long memNo = rs.getLong(1);
+				long bookNo = rs.getLong(2);
+				long quantity = rs.getLong(3);
 				
 				map.put("memNo", memNo);
 				map.put("bookNo", bookNo);
@@ -80,7 +80,7 @@ public class CartDao {
 		return list;
 	}
 
-	public boolean updateCartEach(Long memberNo, Long bookNo, long quantity) {
+	public boolean updateCartEach(long memberNo, long bookNo, long quantity) {
 		boolean result = false;
 
 		Connection conn = null;
@@ -124,7 +124,7 @@ public class CartDao {
 		return result;
 	}
 
-	public boolean deleteCartEach(Long memberNo, Long bookNo) {
+	public boolean deleteCartEach(long memberNo, long bookNo) {
 		boolean result = false;
 
 		Connection conn = null;
@@ -166,7 +166,7 @@ public class CartDao {
 		return result;
 	}
 
-	public boolean insertCartEach(Long memberNo, Long bookNo, long quantity) {
+	public boolean insertCartEach(long memberNo, long bookNo, long quantity) {
 		boolean result = false;
 
 		Connection conn = null;
@@ -187,19 +187,18 @@ public class CartDao {
 					+ " where book_no='"+bookNo+"' and mem_no = '"+memberNo+"'";
 			pstmtExist = conn.prepareStatement(chkExistSql);
 			rs=pstmtExist.executeQuery();
-			Long quantityChk=0L;
+			long quantityChk=0L;
 			while(rs.next()) {
 				quantityChk=rs.getLong(1);
 			}
-			
-			if(quantityChk>1) {
+			if(quantityChk>=1) {
 				//장바구니에 있을 경우 update
 				String sql = "update cart "
 						+ "set quantity = ? "
 						+ "where mem_no = ? and book_no = ? ";
 				pstmt = conn.prepareStatement(sql);
 				//4. binding
-				pstmt.setLong(1, quantity+quantityChk.intValue());
+				pstmt.setLong(1, quantity+Long.valueOf(quantityChk).intValue());
 				pstmt.setLong(2, memberNo);
 				pstmt.setLong(3, bookNo);
 				

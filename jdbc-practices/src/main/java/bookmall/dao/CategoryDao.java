@@ -32,7 +32,7 @@ public class CategoryDao {
 			
 			//6. 결과 처리
 			while(rs.next()) {
-				Long no = rs.getLong(1);
+				long no = rs.getLong(1);
 				String name = rs.getString(2);
 
 				CategoryVo vo = new CategoryVo();

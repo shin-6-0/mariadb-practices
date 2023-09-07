@@ -28,7 +28,7 @@ public class BookDaoTest {
 		selectBook();*/
 	}
 
-	private static void updateBookPrice(String title, Long price) {
+	private static void updateBookPrice(String title, long price) {
 		boolean updatePrice = new BookDao().updateBookPrice(title,price);
 		if(updatePrice) {
 			System.out.println(">> 가격 변경 (Update) 실행 : 제목 = '"+title+"'인 책의 가격을 "
@@ -53,8 +53,8 @@ public class BookDaoTest {
 			+ "', 가격 = " + vo.getPrice()+"원, 카테고리 = '"+vo.getCategoryName()+"'인 책 추가");
 		}
 	}
-	private static Long findBookNo(String title) {
-		Long bookNo = new BookDao().findBookNo(title);
+	private static long findBookNo(String title) {
+		long bookNo = new BookDao().findBookNo(title);
 		return bookNo;
 	}
 

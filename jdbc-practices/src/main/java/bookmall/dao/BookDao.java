@@ -34,7 +34,7 @@ public class BookDao {
 			//6. 결과 처리
 			while(rs.next()) {
 				String title = rs.getString(1);
-				Long price = rs.getLong(2);
+				long price = rs.getLong(2);
 
 				BookVo vo = new BookVo();
 				vo.setTitle(title);
@@ -82,7 +82,7 @@ public class BookDao {
 					+vo.getCategoryName()+"' ";
 			pstmtBefore = conn.prepareStatement(chkCategorySql);
 			rs = pstmtBefore.executeQuery();
-			Long categoryNo = 0L;
+			long categoryNo = 0L;
 			while(rs.next()) {
 				categoryNo = rs.getLong(1);
 			}
@@ -115,7 +115,7 @@ public class BookDao {
 		return result;
 	}
 	
-	public boolean updateBookPrice(String title, Long price) {
+	public boolean updateBookPrice(String title, long price) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -155,8 +155,8 @@ public class BookDao {
 	
 
 
-	public static Long findBookNo(String title) {
-		Long bookNo = 0L;
+	public static long findBookNo(String title) {
+		long bookNo = 0L;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -191,7 +191,7 @@ public class BookDao {
 		return bookNo;
 	}
 	
-	public static String findBookTitle(Long no ) {
+	public static String findBookTitle(long no ) {
 		String bookTitle = "";
 		
 		Connection conn = null;
@@ -202,7 +202,7 @@ public class BookDao {
 			conn=getConnection();
 
 			String findBookNoSql = "select title from book "
-					+ "where no = '"+no.intValue()+"'";
+					+ "where no = '"+Long.valueOf(no).intValue()+"'";
 			pstmt = conn.prepareStatement(findBookNoSql);
 			rs=pstmt.executeQuery();
 			
@@ -227,8 +227,8 @@ public class BookDao {
 		return bookTitle;
 	}
 
-	public static Long findBookPrice(Long no ) {
-		Long Price = 0L;
+	public static long findBookPrice(long no ) {
+		long Price = 0L;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -238,7 +238,7 @@ public class BookDao {
 			conn=getConnection();
 
 			String findBookNoSql = "select price from book "
-					+ "where no = '"+no.intValue()+"'";
+					+ "where no = '"+Long.valueOf(no).intValue()+"'";
 			pstmt = conn.prepareStatement(findBookNoSql);
 			rs=pstmt.executeQuery();
 			

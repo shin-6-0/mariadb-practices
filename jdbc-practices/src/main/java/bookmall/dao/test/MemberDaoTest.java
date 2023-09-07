@@ -60,8 +60,8 @@ public class MemberDaoTest {
 		return memerName;
 	}
 	
-	public static Long findMemberNo(String email,String password) {
-		Long memberNo =new MemberDao().findMemberNo(email,password);
+	public static long findMemberNo(String email,String password) {
+		long memberNo =new MemberDao().findMemberNo(email,password);
 		return memberNo;
 	}
 }

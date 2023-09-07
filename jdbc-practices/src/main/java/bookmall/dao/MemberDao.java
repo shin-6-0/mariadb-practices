@@ -32,7 +32,7 @@ public class MemberDao {
 			
 			//6. 결과 처리
 			while(rs.next()) {
-				Long no = rs.getLong(1);
+				long no = rs.getLong(1);
 				String name = rs.getString(2);
 				String phone = rs.getString(3);
 				String email = rs.getString(4);
@@ -178,8 +178,8 @@ public class MemberDao {
 		}
 	}
 	
-	public static Long findMemberNo(String email, String password) {
-		Long memberNo = 0L;
+	public static long findMemberNo(String email, String password) {
+		long memberNo = 0L;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;

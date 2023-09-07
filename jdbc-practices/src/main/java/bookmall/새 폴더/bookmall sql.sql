@@ -39,12 +39,30 @@ desc cart;
 select * from cart;
 insert into cart (book_no,mem_no,quantity) values (1,8,2);
 insert into cart (book_no,mem_no,quantity) values (11,8,3);
+insert into cart (book_no,mem_no,quantity) values (12,8,2);
+
 select * from cart where mem_no =8;
 
-select m.name, c.quantity, b.title, b.price
+
+select m.name, m.no, c.quantity, b.title, b.no, b.price
 from member m inner join cart c on m.no = c.mem_no
 inner join book b on b.no = c.book_no;
 
 update cart
-set quantity = 9
-where mem_no = 9 and title = '';
+set quantity = 2
+where mem_no = 8 and book_no=12;
+
+delete from cart where mem_no=8 and book_no=2;
+
+--
+-- order , orderbook
+desc orders;
+desc order_book;
+
+select * from orders;
+select * from order_book;
+
+insert into orders (mem_no,total_price,address) values (8,76000,'서울 서초구 서초대로74길 33');
+insert into orders (mem_no,total_price,address) values (8,382500,'서울특별시 강남구 강남대로 396');
+
+
