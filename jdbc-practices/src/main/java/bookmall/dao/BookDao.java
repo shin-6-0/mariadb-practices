@@ -166,8 +166,9 @@ public class BookDao {
 			conn=getConnection();
 
 			String findBookNoSql = "select no from book "
-					+ "where title = '"+title+"'";
+					+ "where title = '?' ";
 			pstmt = conn.prepareStatement(findBookNoSql);
+			pstmt.setString(1, title);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -238,8 +239,9 @@ public class BookDao {
 			conn=getConnection();
 
 			String findBookNoSql = "select price from book "
-					+ "where no = '"+Long.valueOf(no).intValue()+"'";
+					+ "where no = ?";
 			pstmt = conn.prepareStatement(findBookNoSql);
+			pstmt.setLong(1, no);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -267,7 +269,7 @@ public class BookDao {
 		Connection conn=null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://192.168.0.13:3307/bookmall?charset=utf8";
+			String url = "jdbc:mariadb://192.168.45.99:3307/bookmall?charset=utf8";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);

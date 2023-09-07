@@ -14,18 +14,6 @@ import bookmall.vo.OrderBookVo;
 
 public class CartDao {
 	
-	private Connection getConnection() throws SQLException {
-		Connection conn=null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://192.168.0.13:3307/bookmall?charset=utf8";
-			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
-		} 
-		return conn;
-	}
-
 	public List<Map<String,Long>> selectCartPersonal(long memberNo) {
 		List<Map<String,Long>> list = new ArrayList<>();
 
@@ -236,4 +224,65 @@ public class CartDao {
 		}
 		return result;
 	}
+	
+	public static long findCartPersonal(long memberNo,long bookNo, long bookQuantity) {
+		long hasQuantity=0L;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn=getConnection();
+			
+			//3. SQL 준비
+			String sql = "select quantity"
+					+ " from cart"
+					+ " where mem_no = ? and book_no = ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. binding
+			pstmt.setLong(1, memberNo);
+			pstmt.setLong(2, bookNo);
+			//5. SQL 실행
+			rs = pstmt.executeQuery();
+			//6. 결과 처리
+			if(rs.next()) {
+				hasQuantity=rs.getLong(1);				
+			}
+			if(hasQuantity==0L){
+				
+			}else if(hasQuantity<bookQuantity) {
+				hasQuantity=-1L;
+			}
+						
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		return hasQuantity;
+	}
+	
+	private static Connection getConnection() throws SQLException {
+		Connection conn=null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			String url = "jdbc:mariadb://192.168.45.99:3307/bookmall?charset=utf8";
+			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} 
+		return conn;
+	}
+
 }
