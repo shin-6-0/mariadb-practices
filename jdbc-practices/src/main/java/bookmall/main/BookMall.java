@@ -13,11 +13,6 @@ import bookmall.vo.MemberVo;
 
 public class BookMall {
 	public static void main(String[] args) {
-		/*
-		 * MemberDao memberDao = new MemberDao();
-		 * 
-		 * memberDao.insert(membervoMem1); memberDao.insert(membervoMem2);
-		 */
 		
 		System.out.println("## 회원리스트");
 		MemberDaoTest.selectMember();//조회
@@ -56,6 +51,7 @@ public class BookMall {
 		CategoryDaoTest.insertCategory(voCategory);
 		voCategory.setName("자서전");
 		CategoryDaoTest.insertCategory(voCategory);
+		System.out.println();
 		CategoryDaoTest.selectCategoryAll();
 		System.out.println();
 	
@@ -98,8 +94,10 @@ public class BookMall {
 		System.out.println("## 주문 리스트");
 		OrderDaoTest.selectMemOrderList("prodo1234@naver.com","vmfheh0101"); //멤버별 확인
 		OrderDaoTest.selectBookOrderList();
-		//OrderDaoTest.orderPersonal("prodo1234@naver.com","vmfheh0101","JAVA의 정석",1L,"토지",1L,"서울시 ㅇㅇ구 ㅁㅁ동 123-45");
-		
+		OrderDaoTest.orderPersonal("prodo1234@naver.com","vmfheh0101","JAVA의 정석",1L,"토지",1L,"서울시 ㅇㅇ구 ㅁㅁ동 123-45");
+		System.out.println();
+		OrderDaoTest.selectMemOrderList("prodo1234@naver.com","vmfheh0101"); //멤버별 확인
+		OrderDaoTest.selectBookOrderList();		
 		
 		
 	}
