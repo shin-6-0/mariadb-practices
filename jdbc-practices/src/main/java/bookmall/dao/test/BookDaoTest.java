@@ -28,7 +28,7 @@ public class BookDaoTest {
 		selectBook();*/
 	}
 
-	private static void updateBookPrice(String title, long price) {
+	public static void updateBookPrice(String title, long price) {
 		boolean updatePrice = new BookDao().updateBookPrice(title,price);
 		if(updatePrice) {
 			System.out.println(">> 가격 변경 (Update) 실행 : 제목 = '"+title+"'인 책의 가격을 "
@@ -36,7 +36,7 @@ public class BookDaoTest {
 		}
 	}
 
-	private static void selectBookAll() {
+	public static void selectBookAll() {
 		List<BookVo> list = new BookDao().selectBookAll();
 		System.out.println("****************Book list***************");
 		for (BookVo vo : list) {
@@ -44,17 +44,19 @@ public class BookDaoTest {
 							+ "\t 가격 : " + vo.getPrice());
 		}
 		System.out.println("****************************************");
+		System.out.println();
 	}
 
-	private static void insertBook(BookVo vo) {
+	public static void insertBook(BookVo vo) {
 		boolean insertTrue =new BookDao().insert(vo);
 		if(insertTrue) {
 			System.out.println(">> Insert 실행 : 제목 = '" + vo.getTitle() 
 			+ "', 가격 = " + vo.getPrice()+"원, 카테고리 = '"+vo.getCategoryName()+"'인 책 추가");
 		}
 	}
-	private static long findBookNo(String title) {
-		long bookNo = new BookDao().findBookNo(title);
+	public static long findBookNo(String title) {
+		new BookDao();
+		long bookNo = BookDao.findBookNo(title);
 		return bookNo;
 	}
 

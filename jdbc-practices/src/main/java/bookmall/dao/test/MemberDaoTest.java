@@ -29,17 +29,17 @@ public class MemberDaoTest {
 		 */
 	}
 
-	private static void updatePW(String phone, String email,String pwBefore, String pwAfter) {
+	public static void updatePW(String phone, String email,String pwBefore, String pwAfter) {
 		System.out.println(">> 회원비밀번호 변경(Update) 실행 : email이 '" + email + "인 회원의 비밀번호를 '" + pwBefore + "'에서 "+pwAfter+"로 변경");
 		new MemberDao().updatePW(phone,email,pwBefore,pwAfter);
 	}
 
-	private static void deleteMember(String MemberName, String email) {
-		System.out.println(">> 회원탈퇴(Delete) 실행 : name = '" + MemberName + ", email = '" + email + "'인 멤버");
+	public static void deleteMember(String MemberName, String email) {
+		System.out.println(">> 회원탈퇴(Delete) 실행 : name = '" + MemberName + "', email = '" + email + "'인 멤버");
 		new MemberDao().delete(MemberName,email);
 	}
 
-	private static void selectMember() {
+	public static void selectMember() {
 		List<MemberVo> list = new MemberDao().select();
 		System.out.println("********************Member list*******************");
 		for (MemberVo vo : list) {
@@ -47,9 +47,10 @@ public class MemberDaoTest {
 					+ "\t 이메일 : " + vo.getEmail() + "\t 비밀번호 : " + vo.getPassword());
 		}
 		System.out.println("**************************************************");
+		System.out.println();
 	}
 
-	private static void insertMember(MemberVo vo) {
+	public static void insertMember(MemberVo vo) {
 		new MemberDao().insert(vo);
 		System.out.println(">> 회원가입(Insert) 실행 : 이름 = " + vo.getName() + ", 연락처 : " + vo.getPhone()
 			+ ", 이메일 : " + vo.getEmail() + ", 비밀번호 : " + vo.getPassword()+ "인 멤버 추가");

@@ -68,7 +68,6 @@ public class OrderDao {
 		boolean result = false;
 
 		Connection conn = null;
-		PreparedStatement pstmtMem = null;
 		PreparedStatement pstmtBook = null;
 		PreparedStatement pstmt = null;
 
@@ -78,15 +77,29 @@ public class OrderDao {
 			//3. SQL 준비
 			conn=getConnection();
 			
-			String sql = "delete from orders "
-					+ "where mem_no = ? and book_no = ? ";
-			pstmt = conn.prepareStatement(sql);
-			//4. binding
-			pstmt.setLong(1, memberNo);
-			pstmt.setLong(2, orderNo);
+			String sqlBook = "delete from order_book "
+					+ "where orders_no = ? ";
+			pstmtBook = conn.prepareStatement(sqlBook);
+			pstmtBook.setLong(1, orderNo);
+			int chk = pstmtBook.executeUpdate();
+			System.out.println(chk+"<< chk");
+			if(chk>=1) {
+				String sql = "delete from orders "
+						+ "where mem_no = ? and no = ? ";
+				pstmt = conn.prepareStatement(sql);
+				//4. binding
+				pstmt.setLong(1, memberNo);
+				pstmt.setLong(2, orderNo);
+				
+				int count = pstmt.executeUpdate();
+				System.out.println(count+"<< count");
+
+				result = count == 1;
+			}else {
+				result = false;
+			}
 			
-			int count = pstmt.executeUpdate();
-			result = count == 1;
+
 						
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -159,7 +172,7 @@ public class OrderDao {
 			conn=getConnection();
 					
 			//장바구니에 있을 경우 update
-			String sql = "select count(*) from orders "
+			String sql = "select no from orders "
 					+ "where mem_no = ? and total_price = ? and address = ?";
 			pstmt = conn.prepareStatement(sql);
 			//4. binding
@@ -202,41 +215,15 @@ public class OrderDao {
 		try {
 			//3. SQL 준비
 			conn=getConnection();
-			long countHas = 0L;
-			String sql = "select count(*) from order_book where book_no =?";
-			pstmtCnt = conn.prepareStatement(sql);
+			String sql = "insert into order_book (orders_no, book_no, quantity) values (?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			//4. binding
+			pstmt.setLong(1, findOrderNum);
+			pstmt.setLong(2, bookNo);
+			pstmt.setLong(3, bookQuantity);
 			
-			pstmtCnt.setLong(1,bookNo);
-			
-			rs = pstmtCnt.executeQuery();
-			if(rs.next()) {
-				countHas = rs.getLong(1);
-			}
-			
-			if(countHas!=0) {
-				//이미 책 주문목록에 있을 경우 update
-				String sql2 = "update order_book "
-						+ "set quantity = ? "
-						+ " where book_no = ? ";
-				pstmtUpdate=conn.prepareStatement(sql2);
-				pstmtUpdate.setLong(1, (countHas+bookQuantity));
-				pstmtUpdate.setLong(2, bookNo);
-				int count = pstmtUpdate.executeUpdate();
-				result = count ==1;
-			}else {
-				//없을 경우 insert
-				String sql3 = "insert into order_book (no,book_no,quantity)"
-						+ " values (?,?,?)";
-				pstmt = conn.prepareStatement(sql3);
-				//4. binding
-				pstmt.setLong(1, findOrderNum);
-				pstmt.setLong(2, bookNo);
-				pstmt.setLong(3, bookQuantity);
-				
-				int count = pstmt.executeUpdate();
-				result = count == 1;
-			}
-			
+			int count = pstmt.executeUpdate();
+			result = count == 1;
 			
 			
 		}catch (SQLException e) {
@@ -303,18 +290,20 @@ public class OrderDao {
 		}
 		return list;
 	}
-
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn=null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://192.168.0.92:3307/bookmall?charset=utf8";
+			String url = "jdbc:mariadb://192.168.45.99:3307/bookmall?charset=utf8";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} 
 		return conn;
 	}
+
+
 
 
 }

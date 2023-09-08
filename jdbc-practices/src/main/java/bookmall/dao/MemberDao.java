@@ -189,8 +189,10 @@ public class MemberDao {
 			conn=getConnection();
 
 			String findMemNoSql = "select no from member "
-					+ "where email = '"+email+"' and password = '"+password+"'";
+					+ "where email = ? and password = ?";
 			pstmt = conn.prepareStatement(findMemNoSql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -252,7 +254,7 @@ public class MemberDao {
 		Connection conn=null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://192.168.0.92:3307/bookmall?charset=utf8";
+			String url = "jdbc:mariadb://192.168.45.99:3307/bookmall?charset=utf8";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);

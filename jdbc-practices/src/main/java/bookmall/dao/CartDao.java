@@ -239,7 +239,6 @@ public class CartDao {
 					+ " from cart"
 					+ " where mem_no = ? and book_no = ? ";
 			pstmt = conn.prepareStatement(sql);
-			
 			//4. binding
 			pstmt.setLong(1, memberNo);
 			pstmt.setLong(2, bookNo);
@@ -249,8 +248,9 @@ public class CartDao {
 			if(rs.next()) {
 				hasQuantity=rs.getLong(1);				
 			}
+
 			if(hasQuantity==0L){
-				
+				hasQuantity=0L;
 			}else if(hasQuantity<bookQuantity) {
 				hasQuantity=-1L;
 			}
@@ -277,7 +277,7 @@ public class CartDao {
 		Connection conn=null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://192.168.0.92:3307/bookmall?charset=utf8";
+			String url = "jdbc:mariadb://192.168.45.99:3307/bookmall?charset=utf8";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
