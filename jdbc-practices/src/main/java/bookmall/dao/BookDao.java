@@ -170,7 +170,7 @@ public class BookDao {
 			pstmt = conn.prepareStatement(findBookNoSql);
 			pstmt.setString(1, title);
 			rs=pstmt.executeQuery();
-			
+		
 			while(rs.next()) {
 				bookNo=rs.getLong(1);
 			}

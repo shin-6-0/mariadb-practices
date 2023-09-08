@@ -116,8 +116,6 @@ public class CartDao {
 		boolean result = false;
 
 		Connection conn = null;
-		PreparedStatement pstmtMem = null;
-		PreparedStatement pstmtBook = null;
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -172,8 +170,11 @@ public class CartDao {
 						
 			//추가할 값이 이미 존재하는지 확인
 			String chkExistSql = "select quantity from cart"
-					+ " where book_no='"+bookNo+"' and mem_no = '"+memberNo+"'";
+					+ " where book_no=? and mem_no = ?";
 			pstmtExist = conn.prepareStatement(chkExistSql);
+			pstmtExist.setLong(1, bookNo);
+			pstmtExist.setLong(2, memberNo);
+			
 			rs=pstmtExist.executeQuery();
 			long quantityChk=0L;
 			while(rs.next()) {

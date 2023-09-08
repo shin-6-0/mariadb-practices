@@ -2,8 +2,10 @@ package bookmall.main;
 
 import bookmall.dao.MemberDao;
 import bookmall.dao.test.BookDaoTest;
+import bookmall.dao.test.CartDaoTest;
 import bookmall.dao.test.CategoryDaoTest;
 import bookmall.dao.test.MemberDaoTest;
+import bookmall.dao.test.OrderDaoTest;
 import bookmall.vo.BookVo;
 import bookmall.vo.CategoryVo;
 import bookmall.vo.MemberVo;
@@ -81,11 +83,24 @@ public class BookMall {
 		
 		
 		System.out.println("## 카트");
+		CartDaoTest.selectCartPersonal("prodo1234@naver.com", "vmfheh0101");
+		CartDaoTest.insertCartPersonal("prodo1234@naver.com","vmfheh0101","만델라자서전",2L);
+		CartDaoTest.insertCartPersonal("prodo1234@naver.com","vmfheh0101","토지",2L);
+		CartDaoTest.insertCartPersonal("prodo1234@naver.com","vmfheh0101","JAVA의 정석",2L);
+		CartDaoTest.selectCartPersonal("prodo1234@naver.com", "vmfheh0101");
+		CartDaoTest.updateCartEach("prodo1234@naver.com","vmfheh0101","만델라자서전",1L);
+		CartDaoTest.deleteCartIndividual("prodo1234@naver.com","vmfheh0101","만델라자서전");
+		CartDaoTest.selectCartPersonal("prodo1234@naver.com", "vmfheh0101");
+		System.out.println();
+		
 		
 		
 		System.out.println("## 주문 리스트");
+		OrderDaoTest.selectMemOrderList("prodo1234@naver.com","vmfheh0101"); //멤버별 확인
+		OrderDaoTest.selectBookOrderList();
+		//OrderDaoTest.orderPersonal("prodo1234@naver.com","vmfheh0101","JAVA의 정석",1L,"토지",1L,"서울시 ㅇㅇ구 ㅁㅁ동 123-45");
 		
-		System.out.println("## 주문 도서 리스트");
-	
+		
+		
 	}
 }
